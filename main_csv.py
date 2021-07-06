@@ -280,7 +280,6 @@ print(Fore.WHITE+"Fetching Height, Width, Size, PPI, Bits....")
 for i in range(len(lineart[0])):
     item=lineart[0][i]
     im=cv2.imread(lineart[2][i]+"/"+item)
-    print(lineart[2][i]+"/"+item)
     h,w,c=im.shape
     height.append(h)
     width.append(w)
