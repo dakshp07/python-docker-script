@@ -1,8 +1,11 @@
 # Python Docker Script (Part of my GSoC Project)
 The script scans the folders and stores the required information by dumping it in an CSV.
+
 Have added a test folder with the name as **images** 
+
 We are storing file_name, extension of file, folder_name, artifact_id
-Usind docker to solve the issues of SSL in old servers
+
+Using docker to solve the issues of SSL in old servers
 
 # Steps to run
 1) Clone the repository :
