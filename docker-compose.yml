@@ -3,8 +3,8 @@ services:
   app:
     build: .
     image: cdli-images-py
-    stdin_open: true
-    tty: true
+    container_name: images_docker
+    command: 'tail -f /dev/null'
     volumes: 
       - type: bind
         source: ./images/
