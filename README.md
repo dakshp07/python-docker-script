@@ -44,5 +44,8 @@ python3 main_csv.py images /tmp results.csv #The first arguments is necessary, t
 ```bash
 exit
 ```
+# Screenshot
+![images](assets/demo.png)
+
 # Note
 If you don't want to visit the docker container and run the script on your own, then refer the [**master**](https://github.com/dakshp07/python-docker-script/tree/master) branch of this repo.
