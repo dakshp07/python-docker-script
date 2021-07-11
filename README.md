@@ -33,3 +33,8 @@ volumes:
 ```docker
 docker cp <containerId>:/file/path/within/container /host/path/target
 ```
+
+# Note
+This is **master** branch of repo. You can build the conatiner and use docker-compose up to bring it up.
+
+But if you want to go it the container and give a look to its folders/files, kindly visit the [**docker-sh**](https://github.com/dakshp07/python-docker-script/tree/docker-sh) branch of the repo.
