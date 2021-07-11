@@ -27,9 +27,22 @@ volumes:
         source: ./images/
         target: /tmp/images/
 ```
-5) The CSV is getting dumped at **/tmp/results.csv** with **results.csv** as the name of file.
-
-6) If you want to get a copy of the CSV in your host, run the command:
+5) Now to run the script you need to go inside the container, which can be done in the following way:
 ```docker
-docker cp <containerId>:/file/path/within/container /host/path/target
+docker exec -it images_docker sh
 ```
+6) The script, requirements file is saved in **/tmp** folder
+```bash
+cd tmp
+ls
+```
+7) Now its time to run the script:
+```python
+python3 main_csv.py images /tmp results.csv #The first arguments is necessary, the other two are optional.
+```
+8) Once the script runs successfully, you can exit out of the container by typeing exit:
+```bash
+exit
+```
+# Note
+If you don't want to visit the docker container and run the script on your own, then refer the [**master**](https://github.com/dakshp07/python-docker-script/tree/master) branch of this repo.
