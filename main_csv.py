@@ -71,16 +71,17 @@ else:
 
 # Creating directories for 3D Models
 for file in os.scandir(directory+"/vcmodels"):
-    if(file.name[8:9]=="e"):
-        path_vcmodel_one_arti=os.path.join(directory+"/vcmodels", file.name[0:7]+"_"+file.name[8:9])
-        os.makedirs(path_vcmodel_one_arti, exist_ok=True)
-        if(file.name[0:9]==path_vcmodel_one_arti[-9:]):
-            shutil.move(directory+"/vcmodels/"+file.name,path_vcmodel_one_arti)
-    else:
-        path_vcmodel_one_arti=os.path.join(directory+"/vcmodels", file.name[0:7])
-        os.makedirs(path_vcmodel_one_arti, exist_ok=True)
-        if(file.name[0:7]==path_vcmodel_one_arti[-7:]):
-            shutil.move(directory+"/vcmodels/"+file.name,path_vcmodel_one_arti)
+    if(file.name[0]=="P"):
+        if(file.name[8:9]=="e"):
+            path_vcmodel_one_arti=os.path.join(directory+"/vcmodels", file.name[0:7]+"_"+file.name[8:9])
+            os.makedirs(path_vcmodel_one_arti, exist_ok=True)
+            if(file.name[0:9]==path_vcmodel_one_arti[-9:]):
+                shutil.move(directory+"/vcmodels/"+file.name,path_vcmodel_one_arti)
+        else:
+            path_vcmodel_one_arti=os.path.join(directory+"/vcmodels", file.name[0:7])
+            os.makedirs(path_vcmodel_one_arti, exist_ok=True)
+            if(file.name[0:7]==path_vcmodel_one_arti[-7:]):
+                shutil.move(directory+"/vcmodels/"+file.name,path_vcmodel_one_arti)
 
 #eps = get_filepaths(directory+"/eps")
 lineart = get_filepaths(directory+"/lineart")
@@ -104,43 +105,51 @@ file_name_vc=[]
     #file_name.append(item)
 
 for i in range(len(lineart[0])):
-    item=lineart[0][i]
-    file_name.append(item)
-
-for i in range(len(long_translit[0])):
-    item=long_translit[0][i]
-    file_name.append(item)
-
-for i in range(len(pdf[0])):
-    item=pdf[0][i]
-    file_name.append(item)
-
-for i in range(len(photo[0])):
-    item=photo[0][i]
-    file_name.append(item)
-
-for i in range(len(ptm[0])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        item=ptm[0][i]
+    if (lineart[0][i][0]=="P"):
+        item=lineart[0][i]
         file_name.append(item)
 
+for i in range(len(long_translit[0])):
+    if (long_translit[0][i][0]=="P"):
+        item=long_translit[0][i]
+        file_name.append(item)
+
+for i in range(len(pdf[0])):
+    if (pdf[0][i][0]=="P"):
+        item=pdf[0][i]
+        file_name.append(item)
+
+for i in range(len(photo[0])):
+    if (photo[0][i][0]=="P"):
+        item=photo[0][i]
+        file_name.append(item)
+
+for i in range(len(ptm[0])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            item=ptm[0][i]
+            file_name.append(item)
+
 for i in range(len(svg[0])):
-    item=svg[0][i]
-    file_name.append(item)
+    if (svg[0][i][0]=="P"):
+        item=svg[0][i]
+        file_name.append(item)
 
 for i in range(len(tn_lineart[0])):
-    item=tn_lineart[0][i]
-    file_name.append(item)
+    if (tn_lineart[0][i][0]=="P"):
+        item=tn_lineart[0][i]
+        file_name.append(item)
 
 for i in range(len(tn_photo[0])):
-    item=tn_photo[0][i]
-    file_name.append(item)
+    if (tn_photo[0][i][0]=="P"):
+        item=tn_photo[0][i]
+        file_name.append(item)
 
 for i in range(len(vcmodels[0])):
-    item=vcmodels[0][i]
-    file_name_vc.append(item)
-    file_name_vc_split=np.array_split(file_name_vc,(len(vcmodels[0])/2))
-print(file_name_vc_split[1][1][-3:])
+    if (vcmodels[0][i][0]=="P"):
+        item=vcmodels[0][i]
+        file_name_vc.append(item)
+        file_name_vc_split=np.array_split(file_name_vc,(len(vcmodels[0])/2))
 
 for i in range(len(rti[0])):
     item=rti[0][i]
@@ -162,42 +171,51 @@ folder_name_vc=[]
     #folder_name.append(item)
 
 for i in range(len(lineart[2])):
-    item=lineart[2][i][len(directory):]
-    folder_name.append(item)
-
-for i in range(len(long_translit[2])):
-    item=long_translit[2][i][len(directory):]
-    folder_name.append(item)
-
-for i in range(len(pdf[2])):
-    item=pdf[2][i][len(directory):]
-    folder_name.append(item)
-
-for i in range(len(photo[2])):
-    item=photo[2][i][len(directory):]
-    folder_name.append(item)
-
-for i in range(len(ptm[2])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        item=ptm[2][i][len(directory):]
+    if (lineart[0][i][0]=="P"):
+        item=lineart[2][i][len(directory):]
         folder_name.append(item)
 
+for i in range(len(long_translit[2])):
+    if (long_translit[0][i][0]=="P"):
+        item=long_translit[2][i][len(directory):]
+        folder_name.append(item)
+
+for i in range(len(pdf[2])):
+    if (pdf[0][i][0]=="P"):
+        item=pdf[2][i][len(directory):]
+        folder_name.append(item)
+
+for i in range(len(photo[2])):
+    if (photo[0][i][0]=="P"):
+        item=photo[2][i][len(directory):]
+        folder_name.append(item)
+
+for i in range(len(ptm[2])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            item=ptm[2][i][len(directory):]
+            folder_name.append(item)
+
 for i in range(len(svg[2])):
-    item=svg[2][i][len(directory):]
-    folder_name.append(item)
+    if (svg[0][i][0]=="P"):
+        item=svg[2][i][len(directory):]
+        folder_name.append(item)
 
 for i in range(len(tn_lineart[2])):
-    item=tn_lineart[2][i][len(directory):]
-    folder_name.append(item)
+    if (tn_lineart[0][i][0]=="P"):
+        item=tn_lineart[2][i][len(directory):]
+        folder_name.append(item)
 
 for i in range(len(tn_photo[2])):
-    item=tn_photo[2][i][len(directory):]
-    folder_name.append(item)
+    if (tn_photo[0][i][0]=="P"):
+        item=tn_photo[2][i][len(directory):]
+        folder_name.append(item)
 
 for i in range(len(vcmodels[2])):
-    item=vcmodels[2][i][len(directory):]
-    folder_name_vc.append(item)
-    folder_name_vc_split=np.array_split(folder_name_vc, (len(vcmodels[0])/2))
+    if (vcmodels[0][i][0]=="P"):
+        item=vcmodels[2][i][len(directory):]
+        folder_name_vc.append(item)
+        folder_name_vc_split=np.array_split(folder_name_vc, (len(vcmodels[0])/2))
 
 for i in range(len(rti[2])):
     item=rti[2][i][len(directory):]
@@ -220,46 +238,55 @@ print(Fore.WHITE+"Fecthing Artifact ID....")
     #artifact_id.append(item)
 
 for i in range(len(lineart[0])):
-    item=lineart[0][i][1:7]
-    artifact_id.append(item.strip("0"))
-
-for i in range(len(long_translit[0])):
-    item=long_translit[0][i][1:7]
-    artifact_id.append(item.strip("0"))
-
-for i in range(len(pdf[0])):
-    item=pdf[0][i][1:7]
-    artifact_id.append(item.strip("0"))
-
-for i in range(len(photo[0])):
-    item=photo[0][i][1:7]
-    artifact_id.append(item.strip("0"))
-
-for i in range(len(ptm[0])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        item=ptm[2][i][len(directory)+6: -2]
+    if (lineart[0][i][0]=="P"):
+        item=lineart[0][i][1:7]
         artifact_id.append(item.strip("0"))
 
+for i in range(len(long_translit[0])):
+    if (long_translit[0][i][0]=="P"):
+        item=long_translit[0][i][1:7]
+        artifact_id.append(item.strip("0"))
+
+for i in range(len(pdf[0])):
+    if (pdf[0][i][0]=="P"):
+        item=pdf[0][i][1:7]
+        artifact_id.append(item.strip("0"))
+
+for i in range(len(photo[0])):
+    if (photo[0][i][0]=="P"):
+        item=photo[0][i][1:7]
+        artifact_id.append(item.strip("0"))
+
+for i in range(len(ptm[0])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            item=ptm[2][i][len(directory)+6: -2]
+            artifact_id.append(item.strip("0"))
+
 for i in range(len(svg[0])):
-    item=svg[0][i][1:7]
-    artifact_id.append(item.strip("0"))
+    if (svg[0][i][0]=="P"):
+        item=svg[0][i][1:7]
+        artifact_id.append(item.strip("0"))
 
 for i in range(len(tn_lineart[0])):
-    item=tn_lineart[0][i][1:7]
-    artifact_id.append(item.strip("0"))
+    if (tn_lineart[0][i][0]=="P"):
+        item=tn_lineart[0][i][1:7]
+        artifact_id.append(item.strip("0"))
 
 for i in range(len(tn_photo[0])):
-    item=tn_photo[0][i][1:7]
-    artifact_id.append(item.strip("0"))
+    if (tn_photo[0][i][0]=="P"):
+        item=tn_photo[0][i][1:7]
+        artifact_id.append(item.strip("0"))
 
 for i in range(len(vcmodels[0])):
-    item=vcmodels[2][i][len(directory)+11:]
-    if((vcmodels[2][i][len(directory)+11:])[-1:]=="e" or (vcmodels[2][i][len(directory)+11:])[-1:]=="a" or (vcmodels[2][i][len(directory)+11:])[-1:]=="b"):
-        artifact_id_vc.append(item[0:6].strip("0"))
-        artifact_id_vc_split=np.array_split(artifact_id_vc,(len(vcmodels[0])/2))
-    else:
-        artifact_id_vc.append(item.strip("0"))
-        artifact_id_vc_split=np.array_split(artifact_id_vc,(len(vcmodels[0])/2))
+    if (vcmodels[0][i][0]=="P"):
+        item=vcmodels[2][i][len(directory)+11:]
+        if((vcmodels[2][i][len(directory)+11:])[-1:]=="e" or (vcmodels[2][i][len(directory)+11:])[-1:]=="a" or (vcmodels[2][i][len(directory)+11:])[-1:]=="b"):
+            artifact_id_vc.append(item[0:6].strip("0"))
+            artifact_id_vc_split=np.array_split(artifact_id_vc,(len(vcmodels[0])/2))
+        else:
+            artifact_id_vc.append(item.strip("0"))
+            artifact_id_vc_split=np.array_split(artifact_id_vc,(len(vcmodels[0])/2))
 
 for i in range(len(rti[0])):
     if(rti[2][i][-1]=="o" or rti[2][i][-1]=="r"):
@@ -285,63 +312,72 @@ print(Fore.WHITE+"Fecthing Image Type....")
     #image_type.append(item)
 
 for i in range(len(lineart[0])):
-    if(lineart[0][i][8:10]=="ld"):
-        item="lineart_detail"
-    else:
-        item="lineart"
-    image_type.append(item)
-
-for i in range(len(long_translit[0])):
-    item="long_translit"
-    image_type.append(item)
-
-for i in range(len(pdf[0])):
-    item="pdf"
-    image_type.append(item)
-
-for i in range(len(photo[0])):
-    if(photo[0][i][8:9]=="d"):
-        item="photo_detail"
-    elif(photo[0][i][8:9]=="e"):
-        item="photo_enevelope"
-    else:
-        item="photo"
-    image_type.append(item)
-
-for i in range(len(ptm[0])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        item="ptm"
+    if (lineart[0][i][0]=="P"):
+        if(lineart[0][i][8:10]=="ld"):
+            item="lineart_detail"
+        else:
+            item="lineart"
         image_type.append(item)
 
+for i in range(len(long_translit[0])):
+    if (long_translit[0][i][0]=="P"):
+        item="long_translit"
+        image_type.append(item)
+
+for i in range(len(pdf[0])):
+    if (pdf[0][i][0]=="P"):
+        item="pdf"
+        image_type.append(item)
+
+for i in range(len(photo[0])):
+    if (photo[0][i][0]=="P"):
+        if(photo[0][i][8:9]=="d"):
+            item="photo_detail"
+        elif(photo[0][i][8:9]=="e"):
+            item="photo_enevelope"
+        else:
+            item="photo"
+        image_type.append(item)
+
+for i in range(len(ptm[0])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            item="ptm"
+            image_type.append(item)
+
 for i in range(len(svg[0])):
-    item="svg"
-    image_type.append(item)
+    if (svg[0][i][0]=="P"):
+        item="svg"
+        image_type.append(item)
 
 for i in range(len(tn_lineart[0])):
-    item="thumb_lineart"
-    image_type.append(item)
+    if (tn_lineart[0][i][0]=="P"):
+        item="thumb_lineart"
+        image_type.append(item)
 
 for i in range(len(tn_photo[0])):
-    item="thumb_photo"
-    image_type.append(item)
+    if (tn_photo[0][i][0]=="P"):
+        item="thumb_photo"
+        image_type.append(item)
 
 for i in range(len(vcmodels[0])):
-    if (vcmodels[2][i][-1]=="e"):
-        item="3D_model_e"
-        image_type_vc.append(item)
-        image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
-    elif (vcmodels[2][i][-1]=="a"):
-        item="3D_model_a"
-        image_type_vc.append(item)
-        image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
-    elif (vcmodels[2][i][-1]=="b"):
-        item="3D_model_b"
-        image_type_vc.append(item)
-        image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
-    else:
-        item="3D_model"
-        image_type_vc.append(item)
-        image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+    if (vcmodels[0][i][0]=="P"):
+        if (vcmodels[2][i][-1]=="e"):
+            item="3D_model_e"
+            image_type_vc.append(item)
+            image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+        elif (vcmodels[2][i][-1]=="a"):
+            item="3D_model_a"
+            image_type_vc.append(item)
+            image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+        elif (vcmodels[2][i][-1]=="b"):
+            item="3D_model_b"
+            image_type_vc.append(item)
+            image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+        else:
+            item="3D_model"
+            image_type_vc.append(item)
+            image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
 
 for i in range(len(rti[0])):
     if(rti[2][i][-1]=="o"):
@@ -405,160 +441,179 @@ print(Fore.WHITE+"Fetching Height, Width, Size, PPI, Bits....")
     #file_name.append(item)
 
 for i in range(len(lineart[0])):
-    item=lineart[0][i]
-    im=cv2.imread(lineart[2][i]+"/"+item)
-    h,w,c=im.shape
-    height.append(h)
-    width.append(w)
-    image=Image.open(lineart[2][i]+"/"+item)
-    colors=image.getpixel((320,240))
-    rgb.append(colors)
-    bpp = mode_to_bpp[image.mode]
-    bit.append(bpp)
-    ppi_value=w/(w*0.01)
-    ppi.append(ppi_value)
-    size_value=str((os.stat(lineart[2][i]+"/"+item).st_size)*0.000001)
-    size_bytes.append(size_value)
-    pixels_value=w*h
-    pixels.append(pixels_value)
-    format.append(lineart[1][i])
-
-for i in range(len(long_translit[0])):
-    item=long_translit[0][i]
-    im=cv2.imread(long_translit[2][i]+"/"+item)
-    h,w,c=im.shape
-    height.append(h)
-    width.append(w)
-    image=Image.open(long_translit[2][i]+"/"+item)
-    colors=image.getpixel((320,420))
-    rgb.append(colors)
-    bpp = mode_to_bpp[image.mode]
-    bit.append(bpp)
-    ppi_value=w/(w*0.01)
-    ppi.append(ppi_value)
-    size_value=str((os.stat(long_translit[2][i]+"/"+item).st_size)*0.000001)
-    size_bytes.append(size_value)
-    pixels_value=w*h
-    pixels.append(pixels_value)
-    format.append(long_translit[1][i])
-
-for i in range(len(pdf[0])):
-    item=pdf[0][i]
-    height.append("")
-    width.append("")
-    rgb.append("")
-    bit.append("")
-    ppi.append("")
-    size_bytes.append("")
-    pixels.append("")
-    format.append(pdf[1][i])
-
-for i in range(len(photo[0])):
-    item=photo[0][i]
-    im=cv2.imread(photo[2][i]+"/"+item)
-    h,w,c=im.shape
-    height.append(h)
-    width.append(w)
-    image=Image.open(photo[2][i]+"/"+item)
-    colors=image.getpixel((320,420))
-    rgb.append(colors)
-    bpp = mode_to_bpp[image.mode]
-    bit.append(bpp)
-    ppi_value=w/(w*0.01)
-    ppi.append(ppi_value)
-    size_value=str((os.stat(photo[2][i]+"/"+item).st_size)*0.000001)
-    size_bytes.append(size_value)
-    pixels_value=w*h
-    pixels.append(pixels_value)
-    format.append(photo[1][i])
-
-for i in range(len(ptm[0])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        item=ptm[0][i]
-        im=cv2.imread(ptm[2][i]+"/"+item)
+    if (lineart[0][i][0]=="P"):
+        item=lineart[0][i]
+        im=cv2.imread(lineart[2][i]+"/"+item)
         h,w,c=im.shape
         height.append(h)
         width.append(w)
-        image=Image.open(ptm[2][i]+"/"+item)
+        image=Image.open(lineart[2][i]+"/"+item)
+        colors=image.getpixel((320,240))
+        rgb.append(colors)
+        bpp = mode_to_bpp[image.mode]
+        bit.append(bpp)
+        ppi_value=w/(w*0.01)
+        ppi.append(ppi_value)
+        size_value=str((os.stat(lineart[2][i]+"/"+item).st_size)*0.000001)
+        size_bytes.append(size_value)
+        pixels_value=w*h
+        pixels.append(pixels_value)
+        format.append(lineart[1][i])
+
+for i in range(len(long_translit[0])):
+    if (long_translit[0][i][0]=="P"):
+        item=long_translit[0][i]
+        im=cv2.imread(long_translit[2][i]+"/"+item)
+        h,w,c=im.shape
+        height.append(h)
+        width.append(w)
+        image=Image.open(long_translit[2][i]+"/"+item)
         colors=image.getpixel((320,420))
         rgb.append(colors)
         bpp = mode_to_bpp[image.mode]
         bit.append(bpp)
         ppi_value=w/(w*0.01)
         ppi.append(ppi_value)
-        size_value=str((os.stat(ptm[2][i]+"/"+item).st_size)*0.000001)
+        size_value=str((os.stat(long_translit[2][i]+"/"+item).st_size)*0.000001)
         size_bytes.append(size_value)
         pixels_value=w*h
         pixels.append(pixels_value)
-        format.append(ptm[1][i])
+        format.append(long_translit[1][i])
+
+for i in range(len(pdf[0])):
+    if (pdf[0][i][0]=="P"):
+        item=pdf[0][i]
+        height.append("")
+        width.append("")
+        rgb.append("")
+        bit.append("")
+        ppi.append("")
+        size_bytes.append("")
+        pixels.append("")
+        format.append(pdf[1][i])
+
+for i in range(len(photo[0])):
+    if (photo[0][i][0]=="P"):
+        item=photo[0][i]
+        im=cv2.imread(photo[2][i]+"/"+item)
+        h,w,c=im.shape
+        height.append(h)
+        width.append(w)
+        image=Image.open(photo[2][i]+"/"+item)
+        colors=image.getpixel((320,420))
+        rgb.append(colors)
+        bpp = mode_to_bpp[image.mode]
+        bit.append(bpp)
+        ppi_value=w/(w*0.01)
+        ppi.append(ppi_value)
+        size_value=str((os.stat(photo[2][i]+"/"+item).st_size)*0.000001)
+        size_bytes.append(size_value)
+        pixels_value=w*h
+        pixels.append(pixels_value)
+        format.append(photo[1][i])
+
+for i in range(len(ptm[0])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            item=ptm[0][i]
+            im=cv2.imread(ptm[2][i]+"/"+item)
+            h,w,c=im.shape
+            height.append(h)
+            width.append(w)
+            image=Image.open(ptm[2][i]+"/"+item)
+            colors=image.getpixel((320,420))
+            rgb.append(colors)
+            bpp = mode_to_bpp[image.mode]
+            bit.append(bpp)
+            ppi_value=w/(w*0.01)
+            ppi.append(ppi_value)
+            size_value=str((os.stat(ptm[2][i]+"/"+item).st_size)*0.000001)
+            size_bytes.append(size_value)
+            pixels_value=w*h
+            pixels.append(pixels_value)
+            format.append(ptm[1][i])
 
 for i in range(len(svg[0])):
-    item=svg[0][i]
-    height.append("")
-    width.append("")
-    rgb.append("")
-    bit.append("")
-    ppi.append("")
-    size_bytes.append("")
-    pixels.append("")
-    format.append(svg[1][i])
+    if (svg[0][i][0]=="P"):
+        item=svg[0][i]
+        height.append("")
+        width.append("")
+        rgb.append("")
+        bit.append("")
+        ppi.append("")
+        size_bytes.append("")
+        pixels.append("")
+        format.append(svg[1][i])
 
 for i in range(len(tn_lineart[0])):
-    item=tn_lineart[0][i]
-    im=cv2.imread(tn_lineart[2][i]+"/"+item)
-    h,w,c=im.shape
-    height.append(h)
-    width.append(w)
-    image=Image.open(tn_lineart[2][i]+"/"+item)
-    colors=image.getpixel((320,420))
-    rgb.append(colors)
-    bpp = mode_to_bpp[image.mode]
-    bit.append(bpp)
-    ppi_value=w/(w*0.01)
-    ppi.append(ppi_value)
-    size_value=str((os.stat(tn_lineart[2][i]+"/"+item).st_size)*0.000001)
-    size_bytes.append(size_value)
-    pixels_value=w*h
-    pixels.append(pixels_value)
-    format.append(tn_lineart[1][i])
+    if (tn_lineart[0][i][0]=="P"):
+        item=tn_lineart[0][i]
+        im=cv2.imread(tn_lineart[2][i]+"/"+item)
+        h,w,c=im.shape
+        height.append(h)
+        width.append(w)
+        image=Image.open(tn_lineart[2][i]+"/"+item)
+        colors=image.getpixel((320,420))
+        rgb.append(colors)
+        bpp = mode_to_bpp[image.mode]
+        bit.append(bpp)
+        ppi_value=w/(w*0.01)
+        ppi.append(ppi_value)
+        size_value=str((os.stat(tn_lineart[2][i]+"/"+item).st_size)*0.000001)
+        size_bytes.append(size_value)
+        pixels_value=w*h
+        pixels.append(pixels_value)
+        format.append(tn_lineart[1][i])
 
 for i in range(len(tn_photo[0])):
-    item=tn_photo[0][i]
-    im=cv2.imread(tn_photo[2][i]+"/"+item)
-    h,w,c=im.shape
-    height.append(h)
-    width.append(w)
-    image=Image.open(tn_photo[2][i]+"/"+item)
-    colors=image.getpixel((320,420))
-    rgb.append(colors)
-    bpp = mode_to_bpp[image.mode]
-    bit.append(bpp)
-    ppi_value=w/(w*0.01)
-    ppi.append(ppi_value)
-    size_value=str((os.stat(tn_photo[2][i]+"/"+item).st_size)*0.000001)
-    size_bytes.append(size_value)
-    pixels_value=w*h
-    pixels.append(pixels_value)
-    format.append(tn_photo[1][i])
+    if (tn_photo[0][i][0]=="P"):
+        item=tn_photo[0][i]
+        im=cv2.imread(tn_photo[2][i]+"/"+item)
+        h,w,c=im.shape
+        height.append(h)
+        width.append(w)
+        image=Image.open(tn_photo[2][i]+"/"+item)
+        colors=image.getpixel((320,420))
+        rgb.append(colors)
+        bpp = mode_to_bpp[image.mode]
+        bit.append(bpp)
+        ppi_value=w/(w*0.01)
+        ppi.append(ppi_value)
+        size_value=str((os.stat(tn_photo[2][i]+"/"+item).st_size)*0.000001)
+        size_bytes.append(size_value)
+        pixels_value=w*h
+        pixels.append(pixels_value)
+        format.append(tn_photo[1][i])
 
 for i in range(len(vcmodels[0])):
-    item=vcmodels[0][i]
-    height_vc.append("")
-    height_vc_split=np.array_split(height_vc,(len(vcmodels[0])/2))
-    width_vc.append("")
-    width_vc_split=np.array_split(width_vc,(len(vcmodels[0])/2))
-    rgb_vc.append("")
-    rgb_vc_split=np.array_split(rgb_vc,(len(vcmodels[0])/2))
-    bits_vc.append("")
-    bits_vc_split=np.array_split(bits_vc,(len(vcmodels[0])/2))
-    ppi_vc.append("")
-    ppi_vc_split=np.array_split(ppi_vc,(len(vcmodels[0])/2))
-    size_bytes_vc.append("")
-    size_bytes_vc_split=np.array_split(size_bytes_vc,(len(vcmodels[0])/2))
-    pixels_vc.append("")
-    pixels_vc_split=np.array_split(pixels_vc,(len(vcmodels[0])/2))
-    format_vc.append(vcmodels[1][i])
-    format_vc_split=np.array_split(format_vc,(len(vcmodels[0])/2))
+    if (vcmodels[0][i][0]=="P"):
+        if(vcmodels[0][i][-3:]=="jpg"):
+            item=vcmodels[0][i]
+            im=cv2.imread(vcmodels[2][i]+"/"+item)
+            h,w,c=im.shape
+            height_vc.append(h)
+            height_vc_split=np.array_split(height_vc,(len(vcmodels[0])/2))
+            width_vc.append(w)
+            width_vc_split=np.array_split(width_vc,(len(vcmodels[0])/2))
+            image=Image.open(vcmodels[2][i]+"/"+item)
+            colors=image.getpixel((320,420))
+            rgb_vc.append(colors)
+            rgb_vc_split=np.array_split(rgb_vc,(len(vcmodels[0])/2))
+            bpp = mode_to_bpp[image.mode]
+            bits_vc.append(bpp)
+            bits_vc_split=np.array_split(bits_vc,(len(vcmodels[0])/2))
+            ppi_value=w/(w*0.01)
+            ppi_vc.append(ppi_value)
+            ppi_vc_split=np.array_split(ppi_vc,(len(vcmodels[0])/2))
+            size_value=str((os.stat(vcmodels[2][i]+"/"+item).st_size)*0.000001)
+            size_bytes_vc.append(size_value)
+            size_bytes_vc_split=np.array_split(size_bytes_vc,(len(vcmodels[0])/2))
+            pixels_value=w*h
+            pixels_vc.append(pixels_value)
+            pixels_vc_split=np.array_split(pixels_vc,(len(vcmodels[0])/2))
+            format_vc.append(vcmodels[1][i])
+            format_vc_split=np.array_split(format_vc,(len(vcmodels[0])/2))
+        
 
 for i in range(len(rti[0])):
     item=rti[0][i]
@@ -580,24 +635,15 @@ for i in range(len(rti[0])):
     format.append(rti[1][i])
     
 for i in range(len(vcmodels[0])//2): 
-    if(file_name_vc_split[i][0][-3:]=="jpg"):
-        format.append(format_vc_split[i][0])
-        height.append(height_vc_split[i][0])
-        width.append(width_vc_split[i][0])
-        rgb.append(rgb_vc_split[i][0])
-        ppi.append(ppi_vc_split[i][0])
-        size_bytes.append(size_bytes_vc_split[i][0])
-        pixels.append(pixels_vc_split[i][0])
-        bit.append(bits_vc_split[i][0])
-    elif (file_name_vc_split[i][1][-3:]=="jpg"):
-        format.append(format_vc_split[i][1])
-        height.append(height_vc_split[i][1])
-        width.append(width_vc_split[i][1])
-        rgb.append(rgb_vc_split[i][1])
-        ppi.append(ppi_vc_split[i][1])
-        size_bytes.append(size_bytes_vc_split[i][1])
-        pixels.append(pixels_vc_split[i][1])
-        bit.append(bits_vc_split[i][1])
+    
+    format.append(format_vc_split[i][0])
+    height.append(height_vc_split[i][0])
+    width.append(width_vc_split[i][0])
+    rgb.append(rgb_vc_split[i][0])
+    ppi.append(ppi_vc_split[i][0])
+    size_bytes.append(size_bytes_vc_split[i][0])
+    pixels.append(pixels_vc_split[i][0])
+    bit.append(bits_vc_split[i][0])
 
 print("Fetching Height, Width, Size, PPI, Bits...."+Fore.GREEN+"done \n")
 modified_date=[]
@@ -612,63 +658,72 @@ print(Fore.WHITE+"Fecthing Dates....")
     #modified_date.append(modify)
 
 for i in range(len(lineart[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(lineart[2][i]+"/"+lineart[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(lineart[2][i]+"/"+lineart[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
-
-for i in range(len(long_translit[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(long_translit[2][i]+"/"+long_translit[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(long_translit[2][i]+"/"+long_translit[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
-
-for i in range(len(pdf[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(pdf[2][i]+"/"+pdf[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(pdf[2][i]+"/"+pdf[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
-
-for i in range(len(photo[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(photo[2][i]+"/"+photo[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(photo[2][i]+"/"+photo[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
-
-for i in range(len(ptm[0])):
-    if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
-        create=datetime.datetime.fromtimestamp(os.path.getctime(ptm[2][i]+"/"+ptm[0][i]))
-        modify=datetime.datetime.fromtimestamp(os.path.getmtime(ptm[2][i]+"/"+ptm[0][i]))
+    if (lineart[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(lineart[2][i]+"/"+lineart[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(lineart[2][i]+"/"+lineart[0][i]))
         created_date.append(create)
         modified_date.append(modify)
 
+for i in range(len(long_translit[0])):
+    if (long_translit[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(long_translit[2][i]+"/"+long_translit[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(long_translit[2][i]+"/"+long_translit[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
+
+for i in range(len(pdf[0])):
+    if (pdf[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(pdf[2][i]+"/"+pdf[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(pdf[2][i]+"/"+pdf[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
+
+for i in range(len(photo[0])):
+    if (photo[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(photo[2][i]+"/"+photo[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(photo[2][i]+"/"+photo[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
+
+for i in range(len(ptm[0])):
+    if (ptm[0][i][0]=="P"):
+        if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
+            create=datetime.datetime.fromtimestamp(os.path.getctime(ptm[2][i]+"/"+ptm[0][i]))
+            modify=datetime.datetime.fromtimestamp(os.path.getmtime(ptm[2][i]+"/"+ptm[0][i]))
+            created_date.append(create)
+            modified_date.append(modify)
+
 for i in range(len(svg[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(svg[2][i]+"/"+svg[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(svg[2][i]+"/"+svg[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
+    if (svg[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(svg[2][i]+"/"+svg[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(svg[2][i]+"/"+svg[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
 
 for i in range(len(tn_lineart[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
+    if (tn_lineart[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
 
 for i in range(len(tn_photo[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(tn_photo[2][i]+"/"+tn_photo[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_photo[2][i]+"/"+tn_photo[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
+    if (tn_photo[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(tn_photo[2][i]+"/"+tn_photo[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_photo[2][i]+"/"+tn_photo[0][i]))
+        created_date.append(create)
+        modified_date.append(modify)
 
 for i in range(len(vcmodels[0])):
-    create=datetime.datetime.fromtimestamp(os.path.getctime(vcmodels[2][i]+"/"+vcmodels[0][i]))
-    modify=datetime.datetime.fromtimestamp(os.path.getmtime(vcmodels[2][i]+"/"+vcmodels[0][i]))
-    create_date=create.strftime('%Y-%m-%d %H:%M:%S.%f')
-    modify_date=modify.strftime('%Y-%m-%d %H:%M:%S.%f')
-    created_date_vc.append(create_date)
-    created_date_vc_split=np.array_split(created_date_vc,(len(vcmodels[0])/2))
-    modified_date_vc.append(modify_date)
-    modified_date_vc_split=np.array_split(modified_date_vc,(len(vcmodels[0])/2))
+    if (vcmodels[0][i][0]=="P"):
+        create=datetime.datetime.fromtimestamp(os.path.getctime(vcmodels[2][i]+"/"+vcmodels[0][i]))
+        modify=datetime.datetime.fromtimestamp(os.path.getmtime(vcmodels[2][i]+"/"+vcmodels[0][i]))
+        create_date=create.strftime('%Y-%m-%d %H:%M:%S.%f')
+        modify_date=modify.strftime('%Y-%m-%d %H:%M:%S.%f')
+        created_date_vc.append(create_date)
+        created_date_vc_split=np.array_split(created_date_vc,(len(vcmodels[0])/2))
+        modified_date_vc.append(modify_date)
+        modified_date_vc_split=np.array_split(modified_date_vc,(len(vcmodels[0])/2))
 
 for i in range(len(rti[0])):
     create=datetime.datetime.fromtimestamp(os.path.getctime(rti[2][i]+"/"+rti[0][i]))
@@ -686,7 +741,18 @@ for i in range(len(vcmodels[0])//2):
     #created_date.append(created_date_vc_split[i])
     #modified_date.append(modified_date_vc_split[i])
 
-print("Fetching Dates...."+Fore.GREEN+"done \n")
+#print(len(file_name))
+#print(len(folder_name))
+#print(len(artifact_id))
+#print(len(image_type))
+#print(len(created_date))
+#print(len(modified_date))
+#print(len(height))
+#print(len(width))
+#print(len(rgb))
+#print(len(size_bytes))
+#print(len(pixels))
+#print("Fetching Dates...."+Fore.GREEN+"done \n")
 dict={"file_name":file_name, "folder_name":folder_name, "artifact_id":artifact_id, "image_type": image_type, "creation_date":created_date, "modify_date":modified_date, "height":height, "width":width, "rgb":rgb, "bit":bit, "ppi":ppi, "size_mb":size_bytes, "size_pixels":pixels, "format":format}
 ##print(dict)
 dataframe=pd.DataFrame(dict)
