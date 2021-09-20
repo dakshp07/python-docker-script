@@ -96,7 +96,7 @@ vcmodels = get_filepaths(directory+"/vcmodels")
 rti=get_filepaths(directory+"/rti")
 mode_to_bpp = {'1':1, 'L':8, 'P':8, 'RGB':24, 'RGBA':32, 'CMYK':32, 'YCbCr':24, 'I':32, 'F':32}
 
-print("Fetching File Names....")
+
 #Storing the data and dumping it in .json file
 file_name=[]
 file_name_vc=[]
@@ -161,9 +161,6 @@ for i in range(len(vcmodels[0])//2):
     elif (file_name_vc_split[i][1][-3:]=="jpg"):
         file_name.append(file_name_vc_split[i][1])
 
-print("Fetching File names...."+Fore.GREEN+"done \n")
-
-print(Fore.WHITE+"Fetching Folder name....")
 folder_name=[]
 folder_name_vc=[]
 #for i in range(len(eps[2])):
@@ -228,7 +225,6 @@ for i in range(len(vcmodels[2])//2):
         folder_name.append(folder_name_vc_split[i][1])
 
 
-print("Fecthing Folder Name...."+Fore.GREEN+"done \n")
 artifact_id=[]
 artifact_id_vc=[]
 print(Fore.WHITE+"Fecthing Artifact ID....")
@@ -304,8 +300,10 @@ for i in range(len(vcmodels[0])//2):
 
 print("Fecthing Artifact ID...."+Fore.GREEN+"done \n")
 image_type=[]
+image_subtype=[]
+image_subtype_vc=[]
 image_type_vc=[]
-print(Fore.WHITE+"Fecthing Image Type....")
+print(Fore.WHITE+"Fecthing Image Type and Subtype....")
 
 #for i in range(len(eps[0])):
     #item="eps"
@@ -314,111 +312,170 @@ print(Fore.WHITE+"Fecthing Image Type....")
 for i in range(len(lineart[0])):
     if (lineart[0][i][0]=="P"):
         if(lineart[0][i][8:10]=="ld"):
-            item="lineart_detail"
+            item="lineart"
+            item_1="detail"
+        elif(lineart[0][i][8:10]=="ls"):
+            item="lineart"
+            item_1="seal"
         else:
             item="lineart"
+            item_1=""
         image_type.append(item)
+        image_subtype.append(item_1)
 
 for i in range(len(long_translit[0])):
     if (long_translit[0][i][0]=="P"):
-        item="long_translit"
+        item="long"
+        item_1="translit"
         image_type.append(item)
+        image_subtype.append(item_1)
 
 for i in range(len(pdf[0])):
     if (pdf[0][i][0]=="P"):
         item="pdf"
+        item_1=""
+        image_subtype.append(item_1)
         image_type.append(item)
 
 for i in range(len(photo[0])):
     if (photo[0][i][0]=="P"):
         if(photo[0][i][8:9]=="d"):
-            item="photo_detail"
+            item="photo"
+            item_1="detail"
+        elif(photo[0][i][8:9]=="s"):
+            item="photo"
+            item_1="seal"
         elif(photo[0][i][8:9]=="e"):
-            item="photo_enevelope"
+            item="photo"
+            item_1="envelope"
         else:
             item="photo"
+            item_1=""
+        image_subtype.append(item_1)
         image_type.append(item)
 
 for i in range(len(ptm[0])):
     if (ptm[0][i][0]=="P"):
         if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
             item="ptm"
+            item_1=""
+            image_subtype.append(item_1)
             image_type.append(item)
 
 for i in range(len(svg[0])):
     if (svg[0][i][0]=="P"):
         item="svg"
+        item_1=""
+        image_subtype.append(item_1)
         image_type.append(item)
 
 for i in range(len(tn_lineart[0])):
     if (tn_lineart[0][i][0]=="P"):
-        item="thumb_lineart"
+        item="lineart"
+        item_1="thumb"
+        image_subtype.append(item_1)
         image_type.append(item)
 
 for i in range(len(tn_photo[0])):
     if (tn_photo[0][i][0]=="P"):
-        item="thumb_photo"
+        item="photo"
+        item_1="thumb"
+        image_subtype.append(item_1)
         image_type.append(item)
 
 for i in range(len(vcmodels[0])):
     if (vcmodels[0][i][0]=="P"):
         if (vcmodels[2][i][-1]=="e"):
-            item="3D_model_e"
+            item="3D_model"
+            item_1="e"
+            image_subtype_vc.append(item_1)
             image_type_vc.append(item)
             image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+            image_subtype_vc_split=np.array_split(image_subtype_vc,(len(vcmodels[0])/2))
         elif (vcmodels[2][i][-1]=="a"):
-            item="3D_model_a"
+            item="3D_model"
+            item_1="a"
+            image_subtype_vc.append(item_1)
             image_type_vc.append(item)
             image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+            image_subtype_vc_split=np.array_split(image_subtype_vc,(len(vcmodels[0])/2))
         elif (vcmodels[2][i][-1]=="b"):
-            item="3D_model_b"
+            item="3D_model"
+            item_1="b"
+            image_subtype_vc.append(item_1)
             image_type_vc.append(item)
             image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+            image_subtype_vc_split=np.array_split(image_subtype_vc,(len(vcmodels[0])/2))
         else:
             item="3D_model"
+            item_1=""
+            image_subtype_vc.append(item_1)
             image_type_vc.append(item)
             image_type_vc_split=np.array_split(image_type_vc,(len(vcmodels[0])/2))
+            image_subtype_vc_split=np.array_split(image_subtype_vc,(len(vcmodels[0])/2))
 
 for i in range(len(rti[0])):
     if(rti[2][i][-1]=="o"):
-        item="rti_observe"
+        item="rti"
+        item_1="observe"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-2]=='l'):
-        item="rti_left_edge"
+        item="rti"
+        item_1="left_edge"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-2]=='b'):
-        item="rti_bottom_edge"
+        item="rti"
+        item_1="bottom_edge"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-1]=='r'):
-        item="rti_reverse"
+        item="rti"
+        item_1="reverse"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-2]=='t'):
-        item="rti_top_edge"
+        item="rti"
+        item_1="top_edge"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-2]=='r'):
-        item="rti_right_edge"
+        item="rti"
+        item_1="right_edge"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-1]=='a'):
-        item="rti_face_a"
+        item="rti"
+        item_1="face_a"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-1]=='b'):
-        item="rti_face_b"
+        item="rti"
+        item_1="face_b"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-1]=='c'):
-        item="rti_face_c"
+        item="rti"
+        item_1="face_c"
+        image_subtype.append(item_1)
         image_type.append(item)
     elif(rti[2][i][-1]=='d'):
-        item="rti_face_d"
+        item="rti"
+        item_1="face_d"
+        image_subtype.append(item_1)
         image_type.append(item)
 ##print(rti[2][i][-2])
     
 for i in range(len(vcmodels[0])//2):
     if(file_name_vc_split[i][0][-3:]=="jpg"):
         image_type.append(image_type_vc_split[i][0])
+        image_subtype.append(image_subtype_vc_split[i][0])
     elif (file_name_vc_split[i][1][-3:]=="jpg"):
         image_type.append(image_type_vc_split[i][1])
+        image_subtype.append(image_subtype_vc_split[i][1])
 
-print("Fetching Image Type...."+Fore.GREEN+"done \n")
+print("Fetching Image Type and Subtype...."+Fore.GREEN+"done \n")
 height=[]
 height_vc=[]
 width=[]
@@ -752,8 +809,8 @@ for i in range(len(vcmodels[0])//2):
 #print(len(rgb))
 #print(len(size_bytes))
 #print(len(pixels))
-#print("Fetching Dates...."+Fore.GREEN+"done \n")
-dict={"file_name":file_name, "folder_name":folder_name, "artifact_id":artifact_id, "image_type": image_type, "creation_date":created_date, "modify_date":modified_date, "height":height, "width":width, "rgb":rgb, "bit":bit, "ppi":ppi, "size_mb":size_bytes, "size_pixels":pixels, "format":format}
+print("Fetching Dates...."+Fore.GREEN+"done \n")
+dict={"artifact_id":artifact_id, "subtype": image_subtype, "image_type": image_type, "created":created_date, "modified":modified_date, "height":height, "width":width, "rgb":rgb, "bit":bit, "ppi":ppi, "size_mb":size_bytes, "size_pixels":pixels, "format":format}
 ##print(dict)
 dataframe=pd.DataFrame(dict)
 dataframe.to_csv(directory_json+"/"+file_csv_name, index=False)
