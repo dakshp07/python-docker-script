@@ -90,8 +90,6 @@ pdf = get_filepaths(directory+"/pdf")
 photo = get_filepaths(directory+"/photo")
 ptm = get_filepaths(directory+"/ptm")
 svg = get_filepaths(directory+"/svg")
-tn_lineart = get_filepaths(directory+"/tn_lineart")
-tn_photo = get_filepaths(directory+"/tn_photo")
 vcmodels = get_filepaths(directory+"/vcmodels")
 rti=get_filepaths(directory+"/rti")
 mode_to_bpp = {'1':1, 'L':8, 'P':8, 'RGB':24, 'RGBA':32, 'CMYK':32, 'YCbCr':24, 'I':32, 'F':32}
@@ -133,16 +131,6 @@ for i in range(len(ptm[0])):
 for i in range(len(svg[0])):
     if (svg[0][i][0]=="P"):
         item=svg[0][i]
-        file_name.append(item)
-
-for i in range(len(tn_lineart[0])):
-    if (tn_lineart[0][i][0]=="P"):
-        item=tn_lineart[0][i]
-        file_name.append(item)
-
-for i in range(len(tn_photo[0])):
-    if (tn_photo[0][i][0]=="P"):
-        item=tn_photo[0][i]
         file_name.append(item)
 
 for i in range(len(vcmodels[0])):
@@ -196,16 +184,6 @@ for i in range(len(ptm[2])):
 for i in range(len(svg[2])):
     if (svg[0][i][0]=="P"):
         item=svg[2][i][len(directory):]
-        folder_name.append(item)
-
-for i in range(len(tn_lineart[2])):
-    if (tn_lineart[0][i][0]=="P"):
-        item=tn_lineart[2][i][len(directory):]
-        folder_name.append(item)
-
-for i in range(len(tn_photo[2])):
-    if (tn_photo[0][i][0]=="P"):
-        item=tn_photo[2][i][len(directory):]
         folder_name.append(item)
 
 for i in range(len(vcmodels[2])):
@@ -264,15 +242,6 @@ for i in range(len(svg[0])):
         item=svg[0][i][1:7]
         artifact_id.append(item.strip("0"))
 
-for i in range(len(tn_lineart[0])):
-    if (tn_lineart[0][i][0]=="P"):
-        item=tn_lineart[0][i][1:7]
-        artifact_id.append(item.strip("0"))
-
-for i in range(len(tn_photo[0])):
-    if (tn_photo[0][i][0]=="P"):
-        item=tn_photo[0][i][1:7]
-        artifact_id.append(item.strip("0"))
 
 for i in range(len(vcmodels[0])):
     if (vcmodels[0][i][0]=="P"):
@@ -366,20 +335,6 @@ for i in range(len(svg[0])):
     if (svg[0][i][0]=="P"):
         item="svg"
         item_1=""
-        image_subtype.append(item_1)
-        image_type.append(item)
-
-for i in range(len(tn_lineart[0])):
-    if (tn_lineart[0][i][0]=="P"):
-        item="lineart"
-        item_1="thumb"
-        image_subtype.append(item_1)
-        image_type.append(item)
-
-for i in range(len(tn_photo[0])):
-    if (tn_photo[0][i][0]=="P"):
-        item="photo"
-        item_1="thumb"
         image_subtype.append(item_1)
         image_type.append(item)
 
@@ -602,46 +557,6 @@ for i in range(len(svg[0])):
         pixels.append("")
         format.append(svg[1][i])
 
-for i in range(len(tn_lineart[0])):
-    if (tn_lineart[0][i][0]=="P"):
-        item=tn_lineart[0][i]
-        im=cv2.imread(tn_lineart[2][i]+"/"+item)
-        h,w,c=im.shape
-        height.append(h)
-        width.append(w)
-        image=Image.open(tn_lineart[2][i]+"/"+item)
-        colors=image.getpixel((320,420))
-        rgb.append(colors)
-        bpp = mode_to_bpp[image.mode]
-        bit.append(bpp)
-        ppi_value=w/(w*0.01)
-        ppi.append(ppi_value)
-        size_value=str((os.stat(tn_lineart[2][i]+"/"+item).st_size)*0.000001)
-        size_bytes.append(size_value)
-        pixels_value=w*h
-        pixels.append(pixels_value)
-        format.append(tn_lineart[1][i])
-
-for i in range(len(tn_photo[0])):
-    if (tn_photo[0][i][0]=="P"):
-        item=tn_photo[0][i]
-        im=cv2.imread(tn_photo[2][i]+"/"+item)
-        h,w,c=im.shape
-        height.append(h)
-        width.append(w)
-        image=Image.open(tn_photo[2][i]+"/"+item)
-        colors=image.getpixel((320,420))
-        rgb.append(colors)
-        bpp = mode_to_bpp[image.mode]
-        bit.append(bpp)
-        ppi_value=w/(w*0.01)
-        ppi.append(ppi_value)
-        size_value=str((os.stat(tn_photo[2][i]+"/"+item).st_size)*0.000001)
-        size_bytes.append(size_value)
-        pixels_value=w*h
-        pixels.append(pixels_value)
-        format.append(tn_photo[1][i])
-
 for i in range(len(vcmodels[0])):
     if (vcmodels[0][i][0]=="P"):
         if(vcmodels[0][i][-3:]=="jpg"):
@@ -718,65 +633,51 @@ for i in range(len(lineart[0])):
     if (lineart[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(lineart[2][i]+"/"+lineart[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(lineart[2][i]+"/"+lineart[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
+        created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+        modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(long_translit[0])):
     if (long_translit[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(long_translit[2][i]+"/"+long_translit[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(long_translit[2][i]+"/"+long_translit[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
+        created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+        modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(pdf[0])):
     if (pdf[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(pdf[2][i]+"/"+pdf[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(pdf[2][i]+"/"+pdf[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
+        created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+        modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(photo[0])):
     if (photo[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(photo[2][i]+"/"+photo[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(photo[2][i]+"/"+photo[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
+        created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+        modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(ptm[0])):
     if (ptm[0][i][0]=="P"):
         if(ptm[2][i][-1]=="o" or ptm[2][i][-1]=="r"):
             create=datetime.datetime.fromtimestamp(os.path.getctime(ptm[2][i]+"/"+ptm[0][i]))
             modify=datetime.datetime.fromtimestamp(os.path.getmtime(ptm[2][i]+"/"+ptm[0][i]))
-            created_date.append(create)
-            modified_date.append(modify)
+            created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+            modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(svg[0])):
     if (svg[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(svg[2][i]+"/"+svg[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(svg[2][i]+"/"+svg[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
-
-for i in range(len(tn_lineart[0])):
-    if (tn_lineart[0][i][0]=="P"):
-        create=datetime.datetime.fromtimestamp(os.path.getctime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
-        modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_lineart[2][i]+"/"+tn_lineart[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
-
-for i in range(len(tn_photo[0])):
-    if (tn_photo[0][i][0]=="P"):
-        create=datetime.datetime.fromtimestamp(os.path.getctime(tn_photo[2][i]+"/"+tn_photo[0][i]))
-        modify=datetime.datetime.fromtimestamp(os.path.getmtime(tn_photo[2][i]+"/"+tn_photo[0][i]))
-        created_date.append(create)
-        modified_date.append(modify)
+        created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+        modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
 
 for i in range(len(vcmodels[0])):
     if (vcmodels[0][i][0]=="P"):
         create=datetime.datetime.fromtimestamp(os.path.getctime(vcmodels[2][i]+"/"+vcmodels[0][i]))
         modify=datetime.datetime.fromtimestamp(os.path.getmtime(vcmodels[2][i]+"/"+vcmodels[0][i]))
-        create_date=create.strftime('%Y-%m-%d %H:%M:%S.%f')
-        modify_date=modify.strftime('%Y-%m-%d %H:%M:%S.%f')
+        create_date=create.strftime('%Y-%m-%d %H:%M:%S')
+        modify_date=modify.strftime('%Y-%m-%d %H:%M:%S')
         created_date_vc.append(create_date)
         created_date_vc_split=np.array_split(created_date_vc,(len(vcmodels[0])/2))
         modified_date_vc.append(modify_date)
@@ -785,8 +686,8 @@ for i in range(len(vcmodels[0])):
 for i in range(len(rti[0])):
     create=datetime.datetime.fromtimestamp(os.path.getctime(rti[2][i]+"/"+rti[0][i]))
     modify=datetime.datetime.fromtimestamp(os.path.getmtime(rti[2][i]+"/"+rti[0][i]))
-    created_date.append(create)
-    modified_date.append(modify)
+    created_date.append(create.strftime("%Y-%m-%d, %H:%M:%S"))
+    modified_date.append(modify.strftime("%Y-%m-%d, %H:%M:%S"))
     
 for i in range(len(vcmodels[0])//2):
     if(file_name_vc_split[i][0][-3:]=="jpg"):
